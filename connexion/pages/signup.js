@@ -9,12 +9,15 @@ export default function SignUp() {
     e.preventDefault();
 
     const response = await fetch('http://localhost:3000/api/auth/signup', {
+      
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
+
     });
+    console.log(response);
 
     const data = await response.json();
     setMessage(data.message);

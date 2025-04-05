@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-export default function Login() {
+export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +19,14 @@ export default function Login() {
     });
 
     const data = await response.json();
-    setMessage(data.message);
+
+    if (response.ok) {
+      setMessage(data.message);
+      // Redirect to welcom.js after successful login
+      router.push('/welcom'); // Make sure this is spelled exactly like your file
+    } else {
+      setMessage(data.message);
+    }
   };
 
   return (
